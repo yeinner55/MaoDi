@@ -28,34 +28,18 @@
             position: relative;
         }
 
-        .header-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 10px;
-        }
-        .header-buttons a, .logout-btn {
-            color: black;
-            background-color: #ffffff;
-            padding: 10px 15px;
-            border-radius: 5px;
-            text-decoration: none;
-        }
-        .header-buttons a:hover, .logout-btn:hover {
-            background-color: #555;
-        }
-        .welcome-message {
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        .logout-btn {
-            background-color: #ff4500;
-            color: white;
+        .menu-btn {
+            display: none;
+            background: white;
+            color: #ff6347;
             border: none;
+            padding: 10px;
+            font-size: 18px;
             cursor: pointer;
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
         }
 
         /* Menú lateral */
@@ -67,6 +51,11 @@
             position: fixed;
             height: 100%;
             overflow-y: auto;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        .sidebar.open {
+            transform: translateX(0);
         }
         .sidebar h2 {
             color: #ff6347;
@@ -89,140 +78,53 @@
             flex-grow: 1;
         }
 
-        /* Estilo para tarjetas */
-        .card {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            margin: 1rem;
-            padding: 1rem;
-            width: 300px;
-        }
-        .job {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            padding: 1rem;
-        }
-
-        /* Footer */
-        footer {
-            background-color: #333;
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-            width: 100%;
-            margin-top: auto;
-        }
-
         /* Ajustes Responsive */
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: relative;
-                margin-bottom: 20px;
-            }
-            .content {
-                margin-left: 0;
-                width: 100%;
-            }
-        }
         @media (max-width: 480px) {
-            header {
-                font-size: 1.2em;
-                padding: 15px;
-            }
-            .header-buttons {
-                flex-direction: column;
-                gap: 5px;
+            .menu-btn {
+                display: block;
             }
             .sidebar {
-                display: none;
+                position: fixed;
+                width: 70%;
+                z-index: 1000;
             }
             .content {
                 margin-left: 0;
                 width: 100%;
             }
-            .job {
-                flex-direction: column;
-                align-items: center;
-            }
-            .card {
-                width: 90%;
-            }
-        }
-        .yeinner {
-            width: 100%;
-            height: auto;
         }
     </style>
 </head>
 <body>
     <!-- Encabezado -->
     <header>
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
         <h1>Bienvenido a MaoDi</h1>
-        <div class="header-buttons" id="authButtons">
-            <a href="login.html">Iniciar Sesión</a>
-            <a href="registro.html">Registrarse</a>
-        </div>
-        <div class="welcome-message" id="welcomeMessage" style="display: none;">
-            <span id="usernameDisplay"></span>
-            <button class="logout-btn" onclick="logout()">Cerrar Sesión</button>
-        </div>
     </header>
 
     <!-- Menú lateral -->
-    <aside class="sidebar">
+    <aside class="sidebar" id="sidebar">
         <h2>MaoDi</h2>
         <a href="index.html">Nosotros</a>
         <a href="servicios.html">Servicios</a>
         <a href="sugerencias.html">Contacto</a>
-        <img class="yeinner" src="yeinner.jpg" alt="10%">
         <p>Desarrollador web: Yeinner José Orosco López</p>
         <p>Email: oroscoyeinner55@gmail.com</p>
     </aside>
 
     <!-- Contenido principal -->
     <main class="content">
-        <section class="hero">
-            <div class="job">
-                <div class="card">
-                    <img src="quienessomos.jpg" class="profile-pic" alt="foto de perfil">
-                    <h3>QUIÉNES SOMOS</h3>
-                    <p>Somos una empresa dedicada a brindar las mejores manualidades hechas a mano con materiales como foami y cintas. 100% colombiana, preservamos las tradiciones de las decoraciones hechas a mano.</p>
-                </div>
-                <div class="card">
-                    <img src="vision.jpg" class="profile-pic" alt="foto de perfil">
-                    <h3>VISIÓN</h3>
-                    <p>Para el 2030, queremos ser una gran fábrica que genere más de 500 empleos directos, enfocándonos en madres cabeza de hogar.</p>
-                </div>
-                <div class="card">
-                    <img src="mision.png" class="profile-pic" alt="foto de perfil">
-                    <h3>MISIÓN</h3>
-                    <p>Crear piezas únicas que transmitan amor y dedicación, promoviendo la sostenibilidad y el trabajo artesanal.</p>
-                </div>
-            </div>
+        <section>
+            <h2>Contenido Principal</h2>
+            <p>Este es el contenido de tu página.</p>
         </section>
     </main>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; MaoDi. Derechos reservados.</p>
-    </footer>
-
     <script>
-        const username = localStorage.getItem('currentUser');
-        if (username) {
-            document.getElementById('usernameDisplay').textContent = `Hola, ${username}`;
-            document.getElementById('authButtons').style.display = 'none';
-            document.getElementById('welcomeMessage').style.display = 'flex';
-        }
-
-        function logout() {
-            localStorage.removeItem('currentUser');
-            location.reload();
+        // Alternar la visibilidad del menú lateral
+        function toggleMenu() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
         }
     </script>
 </body>
