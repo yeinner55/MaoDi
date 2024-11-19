@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Registrarse - MaoDi</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .register-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #ff6347;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #ff4500;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="register-container">
+        <h2>Registrarse</h2>
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="username">Nombre de usuario:</label>
+                <input type="text" id="username" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Correo electrónico:</label>
+                <input type="email" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" required>
+            </div>
+            <button type="button" class="btn" onclick="registerUser()">Registrarse</button>
+        </form>
+    </div>
+
+    <script>
+   
+        function registerUser() {
+            // Obtener los valores de los campos
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+    
+            // Crear un objeto de usuario
+            const user = {
+                username: username,
+                email: email,
+                password: password
+            };
+    
+            // Guardar el objeto de usuario en localStorage
+            localStorage.setItem('user_' + username, JSON.stringify(user));
+    
+            // Guardar el nombre de usuario actual para mostrarlo en welcome.html
+            localStorage.setItem('currentUser', username);
+    
+            // Confirmación y redirección
+            alert('Registro exitoso');
+            window.location.href = 'index.html';
+        }
+    </script>
+
+</body>
+</html>
