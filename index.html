@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Emprendimiento</title>
-  
     <style>
         /* Estilos Generales */
         * {
@@ -26,15 +25,14 @@
             color: white;
             text-align: center;
             padding: 20px 0;
-            width: 100%;
             position: relative;
         }
 
-        .header-buttons, .welcome-message {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            right: 20px;
+        .header-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
         }
         .header-buttons a, .logout-btn {
             color: black;
@@ -42,7 +40,6 @@
             padding: 10px 15px;
             border-radius: 5px;
             text-decoration: none;
-            margin-left: 10px;
         }
         .header-buttons a:hover, .logout-btn:hover {
             background-color: #555;
@@ -51,6 +48,7 @@
             color: white;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 10px;
         }
         .logout-btn {
@@ -133,25 +131,35 @@
         }
         @media (max-width: 480px) {
             header {
-                font-size: 1.5em;
+                font-size: 1.2em;
                 padding: 15px;
             }
-            .sidebar h2 {
-                font-size: 1.2em;
+            .header-buttons {
+                flex-direction: column;
+                gap: 5px;
             }
-            .sidebar a {
-                font-size: 1em;
-                margin: 10px 0;
+            .sidebar {
+                display: none;
+            }
+            .content {
+                margin-left: 0;
+                width: 100%;
+            }
+            .job {
+                flex-direction: column;
+                align-items: center;
+            }
+            .card {
+                width: 90%;
             }
         }
         .yeinner {
             width: 100%;
-            height: 40%;
+            height: auto;
         }
     </style>
 </head>
 <body>
-
     <!-- Encabezado -->
     <header>
         <h1>Bienvenido a MaoDi</h1>
@@ -183,23 +191,17 @@
                 <div class="card">
                     <img src="quienessomos.jpg" class="profile-pic" alt="foto de perfil">
                     <h3>QUIÉNES SOMOS</h3>
-                    <p>
-                        Somos una empresa dedicada a brindar las mejores manualidades hechas a mano con materiales como foami y cintas. 100% colombiana, preservamos las tradiciones de las decoraciones hechas a mano.
-                    </p>
+                    <p>Somos una empresa dedicada a brindar las mejores manualidades hechas a mano con materiales como foami y cintas. 100% colombiana, preservamos las tradiciones de las decoraciones hechas a mano.</p>
                 </div>
                 <div class="card">
                     <img src="vision.jpg" class="profile-pic" alt="foto de perfil">
                     <h3>VISIÓN</h3>
-                    <p>
-                        Para el 2030, queremos ser una gran fábrica que genere más de 500 empleos directos, enfocándonos en madres cabeza de hogar.
-                    </p>
+                    <p>Para el 2030, queremos ser una gran fábrica que genere más de 500 empleos directos, enfocándonos en madres cabeza de hogar.</p>
                 </div>
                 <div class="card">
                     <img src="mision.png" class="profile-pic" alt="foto de perfil">
                     <h3>MISIÓN</h3>
-                    <p>
-                        Crear piezas únicas que transmitan amor y dedicación, promoviendo la sostenibilidad y el trabajo artesanal.
-                    </p>
+                    <p>Crear piezas únicas que transmitan amor y dedicación, promoviendo la sostenibilidad y el trabajo artesanal.</p>
                 </div>
             </div>
         </section>
@@ -211,7 +213,6 @@
     </footer>
 
     <script>
-        // Mostrar el nombre del usuario si está registrado
         const username = localStorage.getItem('currentUser');
         if (username) {
             document.getElementById('usernameDisplay').textContent = `Hola, ${username}`;
@@ -219,7 +220,6 @@
             document.getElementById('welcomeMessage').style.display = 'flex';
         }
 
-        // Función para cerrar sesión
         function logout() {
             localStorage.removeItem('currentUser');
             location.reload();
