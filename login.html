@@ -84,7 +84,24 @@
             ¿No tienes una cuenta? <a href="registro.html">Regístrate</a>
         </div>
     </div>
+    <script>
+        // Función para manejar el inicio de sesión
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita el envío del formulario por defecto
 
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Simulación de autenticación
+            if (email === "user@example.com" && password === "123456") {
+                alert("Inicio de sesión exitoso");
+                localStorage.setItem('currentUser', email); // Guardar usuario en almacenamiento local
+                window.location.href = "index.html"; // Redirigir a la página principal
+            } else {
+                alert("Correo o contraseña incorrectos. Por favor, inténtalo de nuevo.");
+            }
+        });
+    </script>
     
 </body>
 </html>
