@@ -66,7 +66,8 @@
         button:hover {
             background-color: #e5533d;
         }
-        .index{
+
+        .index {
             padding: 10px 15px;
             background-color: #ff6347;
             color: white;
@@ -99,12 +100,9 @@
                 <textarea id="message" name="message" placeholder="Escribe tu mensaje aquí" required></textarea>
             </div>
             <button type="submit">Enviar</button>
-         
         </form>
-        
         <br>
-
-        <a href="index.html"> <button class="index" type="submit">volver al Inicio</button></a>
+        <a href="index.html"><button class="index" type="button">Volver al Inicio</button></a>
     </div>
 
     <script>
@@ -118,8 +116,20 @@
             const subject = document.getElementById('subject').value;
             const message = document.getElementById('message').value;
 
-            // Mostrar un mensaje de confirmación (simulación de envío)
-            alert(`Gracias por contactarnos, ${name}. Hemos recibido tu mensaje: "${message}" sobre "${subject}". Te responderemos al correo: ${email}.`);
+            // Crear un objeto para almacenar los datos
+            const contactData = {
+                name: name,
+                email: email,
+                subject: subject,
+                message: message
+            };
+
+            // Guardar los datos en localStorage
+            const contactKey = `contact_${new Date().getTime()}`; // Crear una clave única
+            localStorage.setItem(contactKey, JSON.stringify(contactData));
+
+            // Mostrar un mensaje de confirmación
+            alert(`Gracias por contactarnos, ${name}. Hemos recibido tu mensaje y lo almacenamos correctamente.`);
             
             // Resetear el formulario
             document.getElementById('contactForm').reset();
