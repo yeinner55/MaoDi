@@ -249,6 +249,7 @@
         <ul id="cartItems"></ul>
         <p><strong>Total:</strong> $<span id="totalPrice">0</span></p>
         <button onclick="vaciarCarrito()">Vaciar Carrito</button>
+        <button onclick="finalizarCompra()">Finalizar Compra</button>
     </div>
 
     <footer>
@@ -287,6 +288,16 @@
             total -= carrito[index].precio;
             carrito.splice(index, 1);
             actualizarCarrito();
+        }
+
+        function finalizarCompra() {
+            if (carrito.length === 0) {
+                alert("Tu carrito está vacío. Agrega productos antes de proceder.");
+                return;
+            }
+
+            alert(`Compra realizada con éxito. Total a pagar: $${total}`);
+            vaciarCarrito(); // Vacía el carrito después de completar la compra
         }
     </script>
 
